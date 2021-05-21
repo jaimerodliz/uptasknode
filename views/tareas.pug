@@ -1,0 +1,22 @@
+extends layout 
+
+block contenido 
+    .contenido-principal 
+        h1 #{nombrePagina} - #{obj.nombre}
+
+        //TODO - FORMULARIO AQUI
+        form.agregar-tarea(action=`/proyectos/${obj.url}` method="POST")
+            .campo
+                label(for="tarea") Tarea: 
+                input.nombre-tarea(type="text" name="tarea" placeholder="Nombre Tarea")
+            .campo.enviar 
+                input.boton.nueva-tarea(type="submit" value="Agregar")
+
+        //TODO -  LISTADO DE PENDIENTES
+
+        //- pre= vardump(tareas)
+
+        //ACCIONES QUE SE PUEDEN REALIZAR
+        .contenedor-acciones
+            a(href=`/proyecto/editar/${obj.id}` class='boton') Editar Proyecto
+            button#eliminar-proyecto(data-url=obj.url type="button" class="boton eliminar" style="padding: 2rem 1rem") Eliminar Proyecto
