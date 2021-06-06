@@ -26,3 +26,50 @@ exports.saveTarea = async(req, res, next) => {
     //redireccionar
     res.redirect(`/proyectos/${req.params.url}`);
 }
+
+//cambiar status de la tarea
+exports.changeStatus = async(req, res, next)=>{
+    const { id } = req.params;
+    const tarea = await Tareas.findOne({ 
+        where:{
+            id: id
+        }
+    });
+
+    //cambiar el estado
+    let status = 0;
+    if(tarea.estado == status){
+        status=1;
+    }
+
+    //cambiar el valor del status
+    tarea.estado = status;
+    
+    //actualizar el registro de tarea
+    const resultado = await tarea.save();
+
+    //si ocurrio un error ejecutar next para pausar el codigo
+    if(!resultado){
+        return next();
+    }
+
+    res.status(200).send('Actualizado..');
+}
+
+exports.deleteTarea = async(req, res, next)=>{
+    const { id } = req.params;
+    
+    //eliminar la tarea
+
+    const resultado = await Tareas.destroy({
+        where:{
+            id: id
+        }
+    });
+
+    if(!resultado){
+        return next();
+    }
+
+    res.status(200).send('Tarea eliminada correctamente');
+}

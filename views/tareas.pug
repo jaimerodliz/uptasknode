@@ -13,8 +13,27 @@ block contenido
                 input.boton.nueva-tarea(type="submit" value="Agregar")
 
         //TODO -  LISTADO DE PENDIENTES
-
+        .listado-pendientes 
+            ul
+              if tareas.length
+                each tarea in tareas
+                    li.tarea(data-idtarea=tarea.id)
+                        p= tarea.tarea
+                        .acciones
+                            if tarea.estado
+                                i.fa.fa-check-circle.completo
+                            else 
+                                i.fa.fa-check-circle
+                            i.fa.fa-trash
+              else 
+                p No hay tareas en este proyecto
         //- pre= vardump(tareas)
+
+        //Avance del proyecto
+        .avance
+            h2 Avance del Proyecto
+            #barra-avance.barra-avance
+                #porcentaje.porcentaje
 
         //ACCIONES QUE SE PUEDEN REALIZAR
         .contenedor-acciones
